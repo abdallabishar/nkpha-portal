@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>NKPHA Hospital Registry Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #003366;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background-color: #003366;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 5px;
+        }
+        button {
+            background-color: #003366;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #005599;
+        }
+    </style>
+</head>
+<body>
+    <h1>NKPHA Hospital Registry Editor</h1>
+    <form id="hospitalForm">
+        <table>
+            <thead>
+                <tr>
+                    <th>Hospital Name</th>
+                    <th>Registration Number</th>
+                    <th>County</th>
+                    <th>Sub-County</th>
+                    <th>Regulatory Body</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="hospitalTable">
+                <!-- Dynamic rows will be added here -->
+            </tbody>
+        </table>
+        <br>
+        <button type="button" onclick="addRow()">Add New Facility</button>
+        <button type="submit">Save List (Print)</button>
+    </form>
+
+    <script>
+        function addRow() {
+            const table = document.getElementById("hospitalTable");
+            const row = table.insertRow();
+            for (let i = 0; i < 5; i++) {
+                const cell = row.insertCell();
+                const input = document.createElement("input");
+                input.type = "text";
+                cell.appendChild(input);
+            }
+            const actionCell = row.insertCell();
+            const removeBtn = document.createElement("button");
+            removeBtn.textContent = "Remove";
+            removeBtn.onclick = function() {
+                table.deleteRow(row.rowIndex - 1);
+            };
+            actionCell.appendChild(removeBtn);
+        }
+
+        document.getElementById("hospitalForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            window.print();
+        });
+    </script>
+</body>
+</html>
